@@ -26,9 +26,9 @@ Encoding.default_external = Encoding::UTF_8
   end
 end
 
-cpan_client 'CGI' do
+cpan_client 'DateTime' do
   action 'install'
-  install_type 'DateTime'
+  install_type 'cpan_module'
   user 'root'
   group 'root'
 end
