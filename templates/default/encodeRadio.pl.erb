@@ -1,0 +1,177 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+use DateTime;
+use POSIX;
+use Encode;
+use utf8;
+use open ":locale";
+use open ":std";
+use File::Basename;
+
+#---------------------------------------------------------------
+# encodeRadio.sh
+#  avconvに渡すタグ情報を生成・エンコード
+#
+#  引数
+#   XXX: Channel:  ラジオ局名   (TBS,QRR,LFR,NSB,INT,FMT,FMJ,JORF,BAYFM78,NACK5,YFM,AM1,AM2,FM)
+#   YYMMDD-HHMM:   開始時刻     (YYYYMMDD-HHMM)
+#   Duration:      録音時間(分) (XXX)
+#
+#  すること
+#   1. 引数から番組名を取得
+#   2. avconv形式で返す
+#---------------------------------------------------------------
+
+my $progFN = "<%= node["radio"]["bindir"] %>/progData.txt"; # 番組情報データのファイル名
+my @dayName = ('', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday');
+my ($channel, $start, $center);
+# 引数チェック
+if (@ARGV == 3){
+  if($ARGV[0] =~ /(.*)(TBS|QRR|LFR|NSB|INT|FMT|FMJ|JORF|BAYFM78|NACK5|YFM|AM1|AM2|FM)/i){
+    $channel = $2;
+  }
+  if($ARGV[1] =~ /(\d{4})(\d{2})(\d{2})-(\d{2})(\d{2})/i){
+    $start = DateTime->new(
+      time_zone => 'Asia/Tokyo',
+      year      => $1,
+      month     => $2,
+      day       => $3,
+      hour      => $4,
+      minute    => $5,
+      second    => 0
+    );
+  }
+  if($ARGV[2] =~ /(\d+)/){
+    $center = DateTime->from_object(object=>$start);
+    $center->add( minutes => ceil($1 / 2) );
+  }
+}
+
+if (!($channel) && !($start) && !($center)) {
+  print "error: 引数の指定が異なります\n";
+  usage();
+}
+
+# ファイル名
+my $workdir  = "<%= node["radio"]["workdir"] %>/${channel}_$ARGV[1]/";
+my $mp3dir   = "<%= node["radio"]["destdir"] %>";
+my $rtmpfile = "$workdir/${channel}_$ARGV[1]";
+my $mp3file  = "$mp3dir/${channel}_$ARGV[1].mp3";
+
+# 番組情報データの読み込み
+my $tagInfo = {};
+&readProgData($tagInfo);
+
+# エンコードの実行
+runEncodeTask($tagInfo);
+
+sub usage{
+  print "Usage: \n";
+  print "$0 [Channel] [Start] [Duration]\n";
+  print "   Channel:  ラジオ局名   (TBS,QRR,LFR,NSB,INT,FMT,FMJ,JORF,BAYFM78,NACK5,YFM,AM1,AM2,FM)\n";
+  print "               TBS     : TBSラジオ\n";
+  print "               QRR     : 文化放送\n";
+  print "               LFR     : ニッポン放送\n";
+  print "               NSB     : ラジオNIKKEI\n";
+  print "               INT     : InterFM\n";
+  print "               FMT     : TOKYO FM\n";
+  print "               FMJ     : J-WAVE\n";
+  print "               JORF    : ラジオ日本\n";
+  print "               BAYFM78 : bayfm78\n";
+  print "               NACK5   : NACK5\n";
+  print "               YFM     : FMヨコハマ\n";
+  print "               AM1     : NHK AM1\n";
+  print "               AM2     : NHK AM2\n";
+  print "               FM      : NHK AM\n";
+  print "   Start:    開始時刻     (YYYYMMDD-HHMM)\n";
+  print "   Duration: 録音時間(分) (XXX)\n";
+  exit(1);
+}
+
+sub readProgData{
+  # 番組ファイルの読み込み
+  my $data = shift;
+  open my $progFP, "<:utf8", $progFN or die $!;
+  while(defined(my $line = <$progFP>)){
+    next if $line =~ /^\#/;   # コメント行はスキップ
+    next if $line =~ /^\s*$/; # 空行はスキップ
+
+    chomp($line);
+    my ($in_channel, $in_week, $in_start, $in_end, $in_artist, $in_album, $in_title, $in_genre, $in_encType)  = split(/,/, $line);
+    # チャンネル名と曜日が同じだったら
+    my $tomorrow = DateTime->from_object(object=>$start)->add(days=>1);
+    if($in_channel eq uc($channel)){ # チャンネル名が一致していて
+      if(($dayName[$start->day_of_week()] eq $in_week) || ($start->hour() == 23 && $start->minute() >= 50 && $dayName[$tomorrow->day_of_week()] eq $in_week)){ # 23:50以降にスタートして次の日の曜日が一致（録音のバッファーをとっている場合）
+        # 開始時刻をDateTime型に変更
+        my ($hour, $minute) = split(/:/, $in_start);
+        my $s = DateTime->from_object(object=>$start);
+        if($s->hour() == 23 && $s->minute() >= 50) {$s->add(days=>1)};
+        $s->set_hour($hour);
+        $s->set_minute($minute);
+        # 終了時刻をDateTime型に変更
+        ($hour, $minute) = split(/:/, $in_end);
+        my $e = DateTime->from_object(object=>$start);
+        $e->set_hour($hour);
+        $e->set_minute($minute);
+        if($s > $e){$e = $e->add( days => 1 );} # 日付をまたがる場合の処理
+        # 引数で取得した録音の中央時間(開始時間＋録音時間／２)が番組内の時間に当てはまるかを比較
+        if($s < $center && $center < $e){
+          # あてはまったら変数を設定して抜ける
+          $data->{channel} = $in_channel;
+          $data->{week}    = $in_week;
+          $data->{start}   = $in_start;
+          $data->{end}     = $in_end;
+          $data->{artist}  = $in_artist;
+          $data->{album}   = $in_album;
+          $data->{genre}   = $in_genre;
+          $data->{encType} = $in_encType;
+          my $titleDate = DateTime->from_object(object=>$s);
+          # 深夜番組は前日の日付を付与
+          if($s->hour() > 0 && $e->hour() < 6){ # 0:00 - 6:00
+            $titleDate->subtract(days => 1);
+          }
+          $data->{title}   = decode('utf-8', encode('utf-8', $in_title) . $titleDate->strftime(encode('UTF-8', ' %Y年%m月%d日')));
+          $data->{year}    = $titleDate->year();
+          last;
+        }
+      }
+    }
+  }
+  close $progFP;
+}
+
+sub runEncodeTask{
+  my ($data) = shift;
+  # --- 共通オプションの設定
+  my $commonOptions = " -loglevel info -y -i $rtmpfile -acodec libmp3lame -id3v2_version 3 ";
+
+  # --- metadataの設定
+  my $metadata = '';
+  $metadata = $metadata . sprintf(" -metadata artist=\"%s\" ",$data->{'artist'})
+    if defined $data->{'artist'};
+  $metadata = $metadata . sprintf(" -metadata title=\"%s\" ", $data->{'title'})
+    if defined $data->{'title'};
+  $metadata = $metadata . sprintf(" -metadata album=\"%s\" ", $data->{'album'})
+    if defined $data->{'album'};
+  $metadata = $metadata . sprintf(" -metadata genre=\"%s\" ", $data->{'genre'})
+    if defined $data->{'genre'};
+  $metadata = $metadata . sprintf(" -metadata year=\"%s\" ", $data->{'year'})
+    if defined $data->{'year'};
+  $metadata = $metadata . sprintf(" -metadata comment=\"%s\" ", $data->{'comment'})
+    if defined $data->{'comment'};
+
+  # --- エンコードオプションの設定
+  my $encOptions = ' -ab 64k -ac 2 ';
+  if(defined($data->{'encType'}) && $data->{'encType'} eq 'Talk'){
+    $encOptions = ' -ab 32k -ac 1 ';
+  }
+
+  # --- ファイル名の指定
+  if (defined $data->{'title'} && $data->{'title'} ne ''){
+    $mp3file = $mp3dir . "$data->{'title'}.mp3";
+  }
+  print "avconv $commonOptions $metadata $encOptions \"$mp3file\"\n";
+  `avconv $commonOptions $metadata $encOptions \"$mp3file\"`;
+}

@@ -1,0 +1,67 @@
+#!/bin/sh
+#
+# radirurec.sh
+# NHK サイマル放送 らじる★らじるコンソール・レコーダー
+#
+# コードを見て分るように saiten さんの Gist を参考に bash script 化しました。
+# https://gist.github.com/1185755
+#
+# 動作確認環境
+# Ubuntu 10.04 Lucid Lynx
+# rtmpdump 2.4 ( リポジトリ・ビルド )
+# avconv ( libav リポジトリ・ビルド )
+# Codec ( 自家ビルド )
+# https://github.com/mitsugu/bash/tree/master/AV/codecs
+#
+
+date=`date '+%Y%m%d-%H%M'`
+workdir=<%= node["radio"]["workdir"] %>/${1}_${date}/
+mp3dir=<%= node["radio"]["destdir"] %>
+rtmpfile="${workdir}/${1}_${date}"
+mp3file="${mp3dir}${1}_${date}.mp3"
+encodeScript="<%= node["radio"]["bindir"] %>/encodeRadio.pl"
+
+if [ $# -eq 2 ]; then
+  case $1 in
+    r1)
+      playpath="NetRadio_R1_flash@63346"
+      ;;
+    r2)
+      playpath="NetRadio_R2_flash@63342"
+      ;;
+    fm)
+      playpath="NetRadio_FM_flash@63343"
+      ;;
+    *)
+      echo 'radiru, radiru player Usage:'
+      echo ' radiru.sh [r1|r2|fm] duration(minutes)'
+      exit 1
+      ;;
+  esac
+  station=$1
+  DURATION_MIN=$2
+  DURATION=`expr $2 \* 60`
+else
+  echo 'radiru, radiru player Usage:'
+  echo ' radiru.sh [r1|r2|fm] duration(minutes)'
+  exit 1
+fi
+
+if [ ! -d $workdir ]; then mkdir -p $workdir; fi
+cd $workdir
+
+
+type="$1"
+rtmpCmd="/usr/bin/rtmpdump -q --rtmp rtmpe://netradio-$type-flash.nhk.jp --playpath $playpath --app live -W http://www3.nhk.or.jp/netradio/files/swf/rtmpe.swf --live --stop $DURATION -o $rtmpfile"
+$rtmpCmd
+RC=$?
+while [ $RC -eq 2 ]
+do
+  $rtmpCmd --resume
+  RC=$?
+done
+
+$encodeScript $station $date $DURATION_MIN
+
+rm -rf $workdir
+

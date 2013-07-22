@@ -1,0 +1,57 @@
+# m h  dom mon dow   command
+#--- TBS RADIO (TBS) ---------------------------------------
+# 月曜JUNK 伊集院光 深夜の馬鹿力
+#50 0 * * 2 /home/satoshi/bin/radiko.sh TBS 130 30
+# 火曜JUNK 爆笑問題カーボーイ
+50 0 * * 3 /home/satoshi/bin/radiko.sh TBS 130 30
+# 水曜JUNK 山里亮太の不毛な議論
+#50 0 * * 4 /home/satoshi/bin/radiko.sh TBS 130 30
+# 木曜JUNK おぎやはぎのメガネびいき
+50 0 * * 5 /home/satoshi/bin/radiko.sh TBS 130 30
+# 金曜JUNK バナナマンのバナナムーンGOLD
+50 0 * * 6 /home/satoshi/bin/radiko.sh TBS 130 30
+# JUNKサタデー エレ片のコント太郎
+#50 0 * * 0 /home/satoshi/bin/radiko.sh TBS 130 30
+# アンタッチャブル柴田と神咲詩織のいい加減、オトナになれよっ！
+#25 20 * * 1 /home/satoshi/bin/radiko.sh TBS 40 30
+# TOYOTA presents おぎやはぎのクルマびいき
+55 16 * * 0 /home/satoshi/bin/radiko.sh TBS 25 30
+#--- Nippon Housou (LFR) -----------------------------------
+# オードリーのオールナイトニッポン
+50 0 * * 0 /home/satoshi/bin/radiko.sh LFR 130 30
+# 久保能町のオールナイトニッポン
+50 0 * * 3 /home/satoshi/bin/radiko.sh LFR 130 30
+# ダイノジ大谷のオールナイトニッポン
+50 0 * * 4 /home/satoshi/bin/radiko.sh LFR 130 30
+# NOGoD団長のオールナイトニッポン0
+#50 2 * 4 2 /home/satoshi/bin/radiko.sh LFR 130 30
+# motoのオールナイトニッポン0
+#50 2 * 4 3 /home/satoshi/bin/radiko.sh LFR 130 30
+# シシド・カフカのオールナイトニッポン0
+#50 2 * 4 4 /home/satoshi/bin/radiko.sh LFR 130 30
+# アルコ＆ピースのオールナイトニッポン0
+50 2 * * 5 /home/satoshi/bin/radiko.sh LFR 130 30
+# 宇野常寛のオールナイトニッポン0
+50 2 * * 6 /home/satoshi/bin/radiko.sh LFR 130 30
+#--- Bunka Housou (QRR) ------------------------------------
+# 壇蜜の耳蜜
+34 18 * * 1 /home/satoshi/bin/radiko.sh QRR 12 10
+#--- NACK5 (NACK5) -----------------------------------------
+# BanBanBazar
+59 23 * * 2 /home/satoshi/bin/radiko.sh NACK5 62 50
+#--- BAYFM78 (BAYFM78) -----------------------------------------
+#--- Tokyo FM (FMT) -----------------------------------------
+59 2 28 6 * /home/satoshi/bin/radiko.sh FMT 62 50
+#--- NHK-FM (FM) -------------------------------------------
+# Weekend Sunshine
+19 7 * * 6 /home/satoshi/bin/radiru.sh fm 102
+# サウンドクリエーターズ・ファイル
+50 20 * * 0 /home/satoshi/bin/radiru.sh fm 102
+
+# test run
+#50 18 14 6 * /home/satoshi/bin/radiko.sh QRR 80 10
+#45 13 * * * /home/satoshi/bin/radiko.sh TBS 80 10
+#*/2 * * * * /home/satoshi/bin/radiko.sh TBS 1 10
+#*/2 * * * * /home/satoshi/bin/radiru.sh fm 1
+#*/2 * * * * /home/satoshi/bin/radiru.sh fm 1
+
