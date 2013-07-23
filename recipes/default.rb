@@ -20,7 +20,7 @@
 Encoding.default_external = Encoding::UTF_8
 
 # 1. Packages / Dependencies
-%w{ perl wget swftools rtmpdump libav-tools libavcodec-extra-53 }.each do |package_name|
+%w{ perl wget swftools rtmpdump libav-tools }.each do |package_name|
   package package_name do
     action :install
   end
