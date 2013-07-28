@@ -44,11 +44,17 @@ if (@ARGV == 3){
       minute    => $5,
       second    => 0
     );
+  }else{
+    die "input parameter date/time error.";
   }
   if($ARGV[2] =~ /(\d+)/){
     $center = DateTime->from_object(object=>$start);
     $center->add( minutes => ceil($1 / 2) );
+  }else{
+    die "input parameter duration error.";
   }
+}else{
+  die "parameter error.";
 }
 
 if (!($channel) && !($start) && !($center)) {
