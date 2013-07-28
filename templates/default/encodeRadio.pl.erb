@@ -15,7 +15,7 @@ use File::Basename;
 #  avconvに渡すタグ情報を生成・エンコード
 #
 #  引数
-#   XXX: Channel:  ラジオ局名   (TBS,QRR,LFR,NSB,INT,FMT,FMJ,JORF,BAYFM78,NACK5,YFM,AM1,AM2,FM)
+#   XXX: Channel:  ラジオ局名   (TBS,QRR,LFR,NSB,INT,FMT,FMJ,JORF,BAYFM78,NACK5,YFM,R1,R2,FM)
 #   YYMMDD-HHMM:   開始時刻     (YYYYMMDD-HHMM)
 #   Duration:      録音時間(分) (XXX)
 #
@@ -29,8 +29,10 @@ my @dayName = ('', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Satu
 my ($channel, $start, $center);
 # 引数チェック
 if (@ARGV == 3){
-  if($ARGV[0] =~ /(.*)(TBS|QRR|LFR|NSB|INT|FMT|FMJ|JORF|BAYFM78|NACK5|YFM|AM1|AM2|FM)/i){
+  if($ARGV[0] =~ /(.*)(TBS|QRR|LFR|NSB|INT|FMT|FMJ|JORF|BAYFM78|NACK5|YFM|R1|R2|FM)/i){
     $channel = $2;
+  }else{
+    die "channel not specified";
   }
   if($ARGV[1] =~ /(\d{4})(\d{2})(\d{2})-(\d{2})(\d{2})/i){
     $start = DateTime->new(
