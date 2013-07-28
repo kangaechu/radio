@@ -64,7 +64,7 @@ if (!($channel) && !($start) && !($center)) {
 
 # ファイル名
 my $workdir  = "<%= node["radio"]["workdir"] %>/${channel}_$ARGV[1]/";
-my $mp3dir   = "<%= node["radio"]["destdir"] %>";
+my $mp3dir   = "<%= node["radio"]["destdir"] %>/";
 my $rtmpfile = "$workdir/${channel}_$ARGV[1]";
 my $mp3file  = "$mp3dir/${channel}_$ARGV[1].mp3";
 
