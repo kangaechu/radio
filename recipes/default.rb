@@ -34,28 +34,15 @@ cpan_client 'DateTime' do
 end
 
 # 2. creating directories
-directory node[:radio][:bindir] do
-  owner node[:radio][:user]
-  group node[:radio][:user]
-  mode "0755"
-  recursive true
-  action :create
-end
-
-directory node[:radio][:workdir] do
-  owner node[:radio][:user]
-  group node[:radio][:user]
-  mode "0755"
-  recursive true
-  action :create
-end
-
-directory node[:radio][:destdir] do
-  owner node[:radio][:user]
-  group node[:radio][:user]
-  mode "0755"
-  recursive true
-  action :create
+[ node[:radio][:bindir], node[:radio][:workdir], node[:radio][:destdir] ].each do |dir|
+  directory dir do
+    owner node[:radio][:user]
+    group node[:radio][:user]
+    mode "0755"
+    recursive true
+    action :create
+    not_if { ::File.exists?(dir) }
+  end
 end
 
 # 3. copying bin files.
