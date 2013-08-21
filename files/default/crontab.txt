@@ -33,6 +33,8 @@
 50 2 * * 5 /home/satoshi/bin/radiko.sh LFR 130 30
 # 宇野常寛のオールナイトニッポン0
 50 2 * * 6 /home/satoshi/bin/radiko.sh LFR 130 30
+# 今田のオールナイトニッポンGOLD
+50 21 30 8 * /home/satoshi/bin/radiko.sh LFR 100 30
 #--- Bunka Housou (QRR) ------------------------------------
 # 壇蜜の耳蜜
 34 18 * * 1 /home/satoshi/bin/radiko.sh QRR 12 10
