@@ -5,7 +5,7 @@
 # 火曜JUNK 爆笑問題カーボーイ
 50 0 * * 3 /home/satoshi/bin/radiko.sh TBS 130 30
 # 水曜JUNK 山里亮太の不毛な議論
-#50 0 * * 4 /home/satoshi/bin/radiko.sh TBS 130 30
+50 0 * * 4 /home/satoshi/bin/radiko.sh TBS 130 30
 # 木曜JUNK おぎやはぎのメガネびいき
 50 0 * * 5 /home/satoshi/bin/radiko.sh TBS 130 30
 # 金曜JUNK バナナマンのバナナムーンGOLD
@@ -17,6 +17,8 @@
 # TOYOTA presents おぎやはぎのクルマびいき
 55 16 * * 0 /home/satoshi/bin/radiko.sh TBS 25 30
 #--- Nippon Housou (LFR) -----------------------------------
+# 99のオールナイトニッポン
+50 0 * * 5 /home/satoshi/bin/radiko.sh LFR 130 30
 # オードリーのオールナイトニッポン
 50 0 * * 0 /home/satoshi/bin/radiko.sh LFR 130 30
 # 久保能町のオールナイトニッポン
