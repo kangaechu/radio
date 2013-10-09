@@ -17,7 +17,7 @@
 # TOYOTA presents おぎやはぎのクルマびいき
 55 16 * * 0 /home/satoshi/bin/radiko.sh TBS 25 30
 #--- Nippon Housou (LFR) -----------------------------------
-# 99のオールナイトニッポン
+# ナインティナインのオールナイトニッポン
 50 0 * * 5 /home/satoshi/bin/radiko.sh LFR 130 30
 # オードリーのオールナイトニッポン
 50 0 * * 0 /home/satoshi/bin/radiko.sh LFR 130 30
@@ -26,20 +26,24 @@
 # ダイノジ大谷のオールナイトニッポン
 50 0 * * 4 /home/satoshi/bin/radiko.sh LFR 130 30
 # NOGoD団長のオールナイトニッポン0
-#50 2 * 4 2 /home/satoshi/bin/radiko.sh LFR 130 30
+#50 2 * * 2 /home/satoshi/bin/radiko.sh LFR 130 30
 # motoのオールナイトニッポン0
-#50 2 * 4 3 /home/satoshi/bin/radiko.sh LFR 130 30
+#50 2 * * 3 /home/satoshi/bin/radiko.sh LFR 130 30
 # シシド・カフカのオールナイトニッポン0
-#50 2 * 4 4 /home/satoshi/bin/radiko.sh LFR 130 30
+#50 2 * * 4 /home/satoshi/bin/radiko.sh LFR 130 30
 # アルコ＆ピースのオールナイトニッポン0
 50 2 * * 5 /home/satoshi/bin/radiko.sh LFR 130 30
 # 宇野常寛のオールナイトニッポン0
 50 2 * * 6 /home/satoshi/bin/radiko.sh LFR 130 30
-# 今田のオールナイトニッポンGOLD
-50 21 30 8 * /home/satoshi/bin/radiko.sh LFR 100 30
+# バカリズムのオールナイトニッポンGOLD
+50 21 * * 1 /home/satoshi/bin/radiko.sh LFR 130 30
+# 宮藤官九郎のオールナイトニッポンGOLD
+50 21 * * 4 /home/satoshi/bin/radiko.sh LFR 130 30
+# サザエさんのオールナイトニッポンGOLD
+50 21 11 10 * /home/satoshi/bin/radiko.sh LFR 130 30
 #--- Bunka Housou (QRR) ------------------------------------
 # 壇蜜の耳蜜
-34 18 * * 1 /home/satoshi/bin/radiko.sh QRR 12 10
+29 19 * * 1 /home/satoshi/bin/radiko.sh QRR 32 50
 #--- NACK5 (NACK5) -----------------------------------------
 # BanBanBazar
 59 23 * * 2 /home/satoshi/bin/radiko.sh NACK5 62 50
