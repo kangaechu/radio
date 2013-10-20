@@ -42,6 +42,9 @@
 #--- Bunka Housou (QRR) ------------------------------------
 # 壇蜜の耳蜜
 29 19 * * 1 /home/satoshi/bin/radiko.sh QRR 32 50
+#--- Radio Nippon (JORF) ------------------------------------
+# 佐藤満春 in 休憩室
+29 3 * * 0 /home/satoshi/bin/radiko.sh JORF 32 50
 #--- NACK5 (NACK5) -----------------------------------------
 # BanBanBazar
 59 23 * * 2 /home/satoshi/bin/radiko.sh NACK5 62 50

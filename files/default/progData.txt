@@ -25,6 +25,8 @@ LFR,Monday,22:00,23:54,AM1242 ニッポン放送,,バカリズムのオールナ
 LFR,Thursday,22:00,23:54,AM1242 ニッポン放送,,宮藤官九郎のオールナイトニッポンGOLD,Radio,Talk
 #--- Bunka Housou (QRR) ------------------------------------
 QRR,Monday,19:30,20:00,文化放送,,壇蜜の耳蜜,Radio,Talk
+#--- Radio Nippon (JORF) ------------------------------------
+JORF,Sunday,03:30,04:00,ラジオ日本,,佐藤満春in休憩室,Radio,Talk
 #--- NACK5 (NACK5) -----------------------------------------
 NACK5,Wednesday,00:00,01:00,NACK5,,Goo Goo Radio,Radio,Music
 #--- NHK-FM (FM) -------------------------------------------
