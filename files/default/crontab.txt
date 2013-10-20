@@ -39,8 +39,6 @@
 50 21 * * 1 /home/satoshi/bin/radiko.sh LFR 130 30
 # 宮藤官九郎のオールナイトニッポンGOLD
 50 21 * * 4 /home/satoshi/bin/radiko.sh LFR 130 30
-# サザエさんのオールナイトニッポンGOLD
-50 21 11 10 * /home/satoshi/bin/radiko.sh LFR 130 30
 # われらラジオ世代
 59 20 23-25 10 * /home/satoshi/bin/radiko.sh LFR 60 30
 #--- Bunka Housou (QRR) ------------------------------------
