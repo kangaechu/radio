@@ -5,7 +5,7 @@
 # 火曜JUNK 爆笑問題カーボーイ
 50 0 * * 3 /home/satoshi/bin/radiko.sh TBS 130 30
 # 水曜JUNK 山里亮太の不毛な議論
-50 0 * * 4 /home/satoshi/bin/radiko.sh TBS 130 30
+#50 0 * * 4 /home/satoshi/bin/radiko.sh TBS 130 30
 # 木曜JUNK おぎやはぎのメガネびいき
 50 0 * * 5 /home/satoshi/bin/radiko.sh TBS 130 30
 # 金曜JUNK バナナマンのバナナムーンGOLD
@@ -16,13 +16,13 @@
 55 16 * * 0 /home/satoshi/bin/radiko.sh TBS 25 30
 #--- Nippon Housou (LFR) -----------------------------------
 # ナインティナインのオールナイトニッポン
-50 0 * * 5 /home/satoshi/bin/radiko.sh LFR 130 30
+#50 0 * * 5 /home/satoshi/bin/radiko.sh LFR 130 30
 # オードリーのオールナイトニッポン
 50 0 * * 0 /home/satoshi/bin/radiko.sh LFR 130 30
 # 久保能町のオールナイトニッポン
 50 0 * * 3 /home/satoshi/bin/radiko.sh LFR 130 30
 # ダイノジ大谷のオールナイトニッポン
-50 0 * * 4 /home/satoshi/bin/radiko.sh LFR 130 30
+#50 0 * * 4 /home/satoshi/bin/radiko.sh LFR 130 30
 # NOGoD団長のオールナイトニッポン0
 #50 2 * * 2 /home/satoshi/bin/radiko.sh LFR 130 30
 # motoのオールナイトニッポン0
@@ -36,26 +36,23 @@
 # バカリズムのオールナイトニッポンGOLD
 50 21 * * 1 /home/satoshi/bin/radiko.sh LFR 130 30
 # 宮藤官九郎のオールナイトニッポンGOLD
-50 21 * * 4 /home/satoshi/bin/radiko.sh LFR 130 30
-# われらラジオ世代
-59 20 23-25 10 * /home/satoshi/bin/radiko.sh LFR 60 30
+#50 21 * * 4 /home/satoshi/bin/radiko.sh LFR 130 30
 #--- Bunka Housou (QRR) ------------------------------------
 # 壇蜜の耳蜜
 29 19 * * 1 /home/satoshi/bin/radiko.sh QRR 32 50
 #--- Radio Nippon (JORF) ------------------------------------
 # 佐藤満春 in 休憩室
-29 3 * * 0 /home/satoshi/bin/radiko.sh JORF 32 50
+#29 3 * * 0 /home/satoshi/bin/radiko.sh JORF 32 50
 #--- NACK5 (NACK5) -----------------------------------------
 # BanBanBazar
 59 23 * * 2 /home/satoshi/bin/radiko.sh NACK5 62 50
 #--- BAYFM78 (BAYFM78) -----------------------------------------
 #--- Tokyo FM (FMT) -----------------------------------------
-59 2 28 6 * /home/satoshi/bin/radiko.sh FMT 62 50
 #--- NHK-FM (FM) -------------------------------------------
 # Weekend Sunshine
-19 7 * * 6 /home/satoshi/bin/radiru.sh fm 102
+10 7 * * 6 /home/satoshi/bin/radiru.sh fm 102
 # サウンドクリエーターズ・ファイル
-50 20 * * 0 /home/satoshi/bin/radiru.sh fm 102
+#50 20 * * 0 /home/satoshi/bin/radiru.sh fm 102
 
 # test run
 #50 18 14 6 * /home/satoshi/bin/radiko.sh QRR 80 10

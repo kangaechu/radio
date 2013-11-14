@@ -7,8 +7,6 @@ TBS,Friday,01:00,03:00,TBS RADIO 954,,おぎやはぎのメガネびいき,Radio
 TBS,Saturday,01:00,03:00,TBS RADIO 954,,バナナマンのバナナムーンGOLD,Radio,Talk
 TBS,Sunday,01:00,03:00,TBS RADIO 954,,エレ片のコント太郎,Radio,Talk
 
-TBS,Monday,20:30,21:00,TBS RADIO 954,,アンタッチャブル柴田と神咲詩織のいい加減、オトナになれよっ！,Radio,Talk
-
 TBS,Sunday,17:00,17:15,TBS RADIO 954,,TOYOTA presents おぎやはぎのクルマびいき,Radio,Talk
 
 #--- Nippon Housou (LFR) -----------------------------------
@@ -16,9 +14,6 @@ LFR,Sunday,01:00,03:00,AM1242 ニッポン放送,,オードリーのオールナ
 LFR,Friday,01:00,03:00,AM1242 ニッポン放送,,ナインティナインのオールナイトニッポン,Radio,Talk
 LFR,Wednesday,01:00,03:00,AM1242 ニッポン放送,,久保ミツロウと能町みね子のオールナイトニッポン,Radio,Talk
 LFR,Thursday,01:00,03:00,AM1242 ニッポン放送,,ダイノジ大谷のオールナイトニッポン,Radio,Talk
-LFR,Tuesday,03:00,05:00,AM1242 ニッポン放送,,NOGoD団長のオールナイトニッポン0,Radio,Talk
-LFR,Wednesday,03:00,05:00,AM1242 ニッポン放送,,motoのオールナイトニッポン0,Radio,Talk
-LFR,Thursday,03:00,05:00,AM1242 ニッポン放送,,シシド・カフカのオールナイトニッポン0,Radio,Talk
 LFR,Friday,03:00,05:00,AM1242 ニッポン放送,,アルコ＆ピースのオールナイトニッポン0,Radio,Talk
 LFR,Saturday,03:00,05:00,AM1242 ニッポン放送,,宇野常寛のオールナイトニッポン0,Radio,Talk
 LFR,Monday,22:00,23:54,AM1242 ニッポン放送,,バカリズムのオールナイトニッポンGOLD,Radio,Talk
