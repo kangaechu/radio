@@ -23,3 +23,17 @@ default["radio"]["bindir"] = "/home/" + node["radio"]["user"] + "/bin"
 default["radio"]["workdir"] = "/home/" + node["radio"]["user"] + "/work/radio"
 default["radio"]["destdir"] = "/home/" + node["radio"]["user"] + "/Dropbox/Radio"
 
+case node['platform_family']
+when 'debian'
+  default['radio']['packages'] = %w[
+    perl wget swftools rtmpdump libav-tools libmp3lame0 libavcodec-extra-53 python-gpgme
+  ]
+when "rhel"
+  default['radio']['packages'] = %w[
+   perl wget swftools rtmpdump libav-tools libmp3lame0 libavcodec-extra-53 python-gpgme
+  ]
+else
+  default['radio']['packages'] = %w[
+   perl wget swftools rtmpdump libav-tools libmp3lame0 libavcodec-extra-53 python-gpgme
+  ]
+end

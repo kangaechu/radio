@@ -19,11 +19,26 @@
 
 Encoding.default_external = Encoding::UTF_8
 
-# 1. Packages / Dependencies
-%w{ perl wget swftools rtmpdump libav-tools libmp3lame0 libavcodec-extra-53 python-gpgme}.each do |package_name|
-  package package_name do
-    action :install
+# 1. Install required packages
+case node['platform_family']
+when 'debian'
+  include_recipe 'apt'
+when 'rhel'
+  include_recipe 'yum::epel'
+end
+
+if node['platform_version'] == "12.04"
+  apt_repository 'swftools' do
+    uri          'http://ppa.launchpad.net/guilhem-fr/swftools/ubuntu/'
+    distribution node['lsb']['codename']
+    components   ['main']
+    keyserver    'keyserver.ubuntu.com'
+    key          '97f87fbf'
   end
+end
+
+node['radio']['packages'].each do |pkg|
+  package pkg
 end
 
 cpan_client 'DateTime' do
