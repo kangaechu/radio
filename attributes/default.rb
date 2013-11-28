@@ -26,7 +26,7 @@ default["radio"]["destdir"] = "/home/" + node["radio"]["user"] + "/Dropbox/Radio
 case node['platform_family']
 when 'debian'
   default['radio']['packages'] = %w[
-    perl wget swftools rtmpdump libav-tools libmp3lame0 libavcodec-extra-53 python-gpgme
+    perl wget swftools rtmpdump libav-tools libmp3lame0 libavcodec-extra-53 python-gpgme liblocal-lib-perl
   ]
 when "rhel"
   default['radio']['packages'] = %w[
